@@ -1,0 +1,422 @@
+:root{
+    --mainGreen: #77B748;
+    --mainDarkGreen: #649B3C;
+    --violet: #DF5EC5;
+    --blue: #4949D2;
+    --yellow: #E6E02F;
+    --red: #F16745;
+    --cyan: #7BC8A4;
+    --lightBlue: #4CC3D9;
+    --purple: #93648D;
+    --LighterGrey: #EDEDED;
+    --lightGrey: #DFDFDF;
+    --grey : #B0B0B0;
+    --darkFontColor: #484848; 
+}
+
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+#arrowImg{
+    padding-bottom: 3px;
+}
+
+#content{
+    width: 167px;
+}
+
+#BestsellerTitle{
+    max-width: 800px;
+    text-align: left;
+    font: normal normal bold 40px/53px Segoe UI;
+    letter-spacing: 0px;
+    color: var(--darkFontColor);
+    opacity: 1;
+}
+
+#userImg{
+    width: 178px;
+    height: 178px;
+    background-color: var(--mainGreen);
+    border-radius: 11px;
+}
+
+#userIcon{
+    width: 128px;
+    height: 128px;
+}
+
+#aNuovi:hover{
+    color: var(--violet);
+}
+
+#aPoema:hover{
+    color: var(--blue);
+}
+
+#aFantasy:hover{
+    color: var(--yellow);
+}
+
+#aInformatica:hover{
+    color: var(--red);
+}
+
+#aPoesie:hover{
+    color: var(--cyan);
+}
+
+#aTecnica:hover{
+    color: var(--lightBlue);
+}
+
+#aRomanzi:hover{
+    color: var(--purple);
+}
+
+.submitBtn{
+    width: 430px; 
+    height: 60px; 
+    margin-left: 32px;
+}
+
+.brk{
+    margin: auto;
+    width: 99.5%;
+    height: 1px; 
+    background-color: var(--lightGrey); 
+    border: none;
+    font: normal normal bold 33px/1344px Segoe UI;
+    font-size: 90px;
+}
+
+.round-btn{
+    border-radius: 100%;
+    width: 48px;
+    height: 48px;   
+    background: white;
+    border: 1px solid var(--lightGrey);
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.round-btn:hover{
+    background: var(--mainGreen);
+}
+
+.divBook{
+    width:100%; 
+}
+
+.arrowButton{
+    width: 25px; 
+    height: 30px;
+}
+
+.divBookTitolo{
+    margin-left:20px;
+    margin-top: 10px;
+    
+}
+
+.fakeBtn{
+    background-color: var(--mainGreen);
+    color: white;
+    border-radius: 26px;
+    box-shadow: 0px 4px var(--mainDarkGreen);
+    border: none;
+    opacity: 1;
+    outline: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.icona_invio{
+    width: 24px;
+    height: 24px;
+    line-height: 15px;
+}
+
+.icona_libro{
+    width: 30px;
+    height: 30px;
+    line-height: 15px;
+}
+
+.parent{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.categoryBall{
+    width: 61px;
+    height: 61px;   
+    border-radius: 50%;
+}
+
+.categoryIcon{
+    width: 45px;
+    height: 36px;
+}
+
+.categoryText{
+    margin-top: 10px;
+    width: 64px;
+    height: 30px;
+    font: normal normal normal 22px/30px Segoe UI;
+}
+
+.vl {
+    border-left: 1px solid var(--lightGrey);
+    height: 75px;
+    transform: rotate(15deg);
+}
+
+.R-btn{
+    background-color: var(--mainGreen);
+    color: white;
+    border-radius: 50px;
+    box-shadow: 0px 4px var(--mainDarkGreen);
+    border: none;
+    opacity: 1;
+    outline: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 48px;
+}
+
+.R-btn:hover{
+    box-shadow: 0px 4px var(--mainGreen);
+    color: white;
+}
+
+.RB-btn{
+    background-color: var(--mainGreen);
+    border: none;
+    color: white;
+}
+
+.RB-btn:hover{
+    background-color: var(--mainDarkGreen);
+}
+
+.RB-btn:active{
+    outline: none;
+}
+
+.RB-btn:focus{
+    outline: none;
+}
+
+.R-flowRow{
+    overflow: hidden; 
+    white-space: nowrap;
+    scroll-behavior: smooth;
+}
+
+.R-grey{
+    color:#D4CFD2;
+}
+
+.R-Hwhite:hover{
+    color: white;
+}
+
+.R-textVerySmall{
+    text-align: left;
+    font: normal normal 300 9px/12px Segoe UI;
+    color: var(--darkFontColor);
+}
+
+.R-textSmall{
+    margin-bottom: 4px; 
+    font-size: 13px; 
+    padding-top: 4px; 
+    font-family: '.'Segoe UI'.', Tahoma, Geneva, Verdana, sans-serif; 
+    font-weight: lighter;
+}
+
+.R-textMedium{
+    margin-bottom: 0px; 
+    word-wrap: break-word; 
+    font-size: 15px; 
+    font-family: '.'Segoe UI'.', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.R-TextLarge{
+    font: normal normal bold 17px/22px Segoe UI;
+    font-size: 17px;
+    color: var(--darkFontColor);
+}
+
+.R-TextSpecial{
+    font: normal normal bold 28px/37px Segoe UI;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+}
+
+.R-noMP{
+    margin: 0px;
+    padding: 0px;
+}
+
+.R-tagLink:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.R-blur{
+    backdrop-filter: blur(6px);
+}
+
+.R-coverScreen{
+    width: 100%; 
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+.R-invisible{
+    display:none;
+}
+
+.R-inputText{
+    color: var(--LighterGrey);
+}
+
+.R-inputBackground{
+    border: none; 
+    background-color: var(--LighterGrey);
+    height: 50px;
+    width: 500px;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 3px;
+}
+
+.R-inputIcon{
+    color: white; 
+    width: 33px; 
+    height: 26px;
+}
+
+.R-inputField{
+    background-color: transparent;
+    width: 90%;
+    border: none;
+}
+
+.R-inputField:focus{
+    outline: none;
+}
+
+.R-btn-nodeco{
+    border: none;
+}
+
+.pointer {
+    font-size: 6px;
+    position: relative;
+    right: 0.40em;
+    border-left: 2em solid;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+}
+
+
+::placeholder{
+    color: var(--grey);
+}
+
+.userText{
+    font-size: 20px; 
+    line-height: 0.4;
+}
+
+.userLabel{
+    font-size: 10px; 
+    line-height: 1.6;
+}
+
+.LoginTab{
+    position: relative;
+    width: 554px;
+    height: 60px;
+    z-index: 3;
+}
+
+.LoginTab-Element{
+    width: 50%; 
+    height: 60px;
+    background-color: white;
+}
+
+.LoginWindow {
+    border-radius: 3px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0px 3px 6px #00000029;
+    background-color: white;
+    z-index: 2;
+    width: 554px;
+    height: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.modifyInput{
+    background-color: transparent;
+    border: 2px dashed #77B748;
+    border-radius: 5px;
+}
+
+.modifyInput:focus{
+    outline: none;
+}
+
+.anim-shake{
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: grey;
+}
+
+a:active {
+    color: black;
+}
+
+
+div {
+    display: block;
+}
+
+@keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+}

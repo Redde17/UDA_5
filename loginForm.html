@@ -1,0 +1,130 @@
+    
+    <!-- Per il login ho tolto l'accesso con nome utente poichè è possibile che nel database possano esserci due persone con stesso nome e password, quindi per evitare conflitti meglio usare solo l'email come login-->
+    <!-- Login form -->
+    <div class="R-blur R-coverScreen R-invisible" id="LoginWindow">
+        <div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+            <span class="iconify" data-icon="bx:bx-x" data-inline="false" style="color: #5A5A5A; cursor: pointer; height: 50px; width: 50px; margin-left: 540px;" onclick="Form()"></span>
+            <div class="d-flex flex-row LoginTab" style="width: 554px;">
+                <button id="LoginButton" onclick="OpenLogin()" class="LoginTab-Element R-btn-nodeco d-flex flex-row justify-content-center align-items-center" style="background-color: white;">
+                    <span class="iconify" data-icon="fa-solid:door-open" data-inline="false" style="color: #5A5A5A;"></span>
+                    <p class="mt-3 ml-2" style="color: #5A5A5A;">Accedi</p>
+                </button>
+                <button id="RegisterButton" onclick="OpenRegister()" class="LoginTab-Element R-btn-nodeco d-flex flex-row justify-content-center align-items-center" style="background-color: #E1E1E1;">
+                    <span class="iconify" data-icon="fa-solid:user-lock" data-inline="false" style="color: #5A5A5A;"></span>    
+                    <p class="mt-3 ml-2" style="color: #5A5A5A;">Registrati</p>
+                </button>
+            </div>
+            
+            <div id="LoginForm" class="d-flex justify-content-center LoginWindow">
+                <form id="SubmitLogin">
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="clarity:email-solid" data-inline="false" style="color: #B0B0B0; width: 40px; height: 26px;"></span>
+                        <input type="text" class="R-inputField" id="LoginEmail" name="LoginEmail" placeholder="E-Mail">
+                    </div>
+
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="fluent:key-24-filled" data-inline="false" style="color: #B0B0B0; width: 33px; height: 26px;"></span>
+                        <input type="password" class="R-inputField" id="LoginPassword" name="LoginPassword" placeholder="Password">
+                    </div>
+
+                    <div id="LoginError"></div> 
+                    <input type="submit" class="submitBtn RB-btn btn-lg mt-3 mb-4" value="Accedi" onclick="isPresentLogin();">
+                </form>
+            </div>
+
+            <div id="RegisterForm" class="d-flex justify-content-center LoginWindow" style="display:none !important;">
+                <form id="SubmitRegister">
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="clarity:email-solid" data-inline="false" style="color: #B0B0B0; width: 40px; height: 26px;"></span>
+                        <input type="text" class="R-inputField" id="RegisterEmail" name="RegisterEmail" placeholder="E-Mail">
+                    </div>
+
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="bi:person-fill" data-inline="false" style="color: #B0B0B0; width: 30px; height: 30px;"></span>
+                        <input type="text" class="R-inputField" id="RegisterName" name="RegisterName" placeholder="Nome Utente">
+                    </div>
+
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="fluent:key-24-filled" data-inline="false" style="color: #B0B0B0; width: 33px; height: 26px;"></span>
+                        <input type="password" class="R-inputField" id="RegisterPassword" name="RegisterPassword" placeholder="Password">
+                    </div>
+
+                    <div class="form-group d-flex flex-row R-inputBackground align-items-center mt-4">
+                        <span class="iconify ml-2" data-icon="fluent:key-24-filled" data-inline="false" style="color: #B0B0B0; width: 33px; height: 26px;"></span>
+                        <input type="password" class="R-inputField" id="RegisterConfirmPassword" name="RegisterConfirmPassword" placeholder="Conferma password">
+                    </div>
+
+                    <div id="RegisterError"></div> 
+                    <input type="submit" class="submitBtn RB-btn btn-lg mt-3 mb-4" value="Registrati" onclick="isPresentRegister();">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //fa si che il tasto submit non aggiorna la pagina
+        var loginForm = document.getElementById("SubmitLogin");
+        function handleForm(event) { event.preventDefault(); } 
+        loginForm.addEventListener('submit', handleForm);
+
+        var registerForm = document.getElementById("SubmitRegister");
+        function handleForm(event) { event.preventDefault(); } 
+        registerForm.addEventListener('submit', handleForm);
+
+        function isPresentLogin(){
+            var email = document.getElementById("LoginEmail").value;
+            var password = document.getElementById("LoginPassword").value;
+            var xhttp;
+            if(email == "" || password == ""){
+                document.getElementById("LoginError").innerHTML = "<div class='alert alert-warning anim-shake' role='alert'>Riempi correttamente i campi!</div>"
+                return;
+            }
+
+            xhttp = new  XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    if(this.responseText){
+                        document.getElementById("LoginError").innerHTML = this.responseText;
+                    }else{
+                        location.reload();
+                    }
+                }
+            }
+
+            xhttp.open("POST", "action.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("email="+email+"&password="+password+"&method=0");
+        }
+
+        function isPresentRegister(){
+            var nome = document.getElementById("RegisterName").value;
+            var email = document.getElementById("RegisterEmail").value;
+            var password = document.getElementById("RegisterPassword").value;
+            var confirmPassword = document.getElementById("RegisterConfirmPassword").value;
+
+            var xhttp;
+            if(nome == "" || email == "" || password == "" || confirmPassword == ""){
+                document.getElementById("RegisterError").innerHTML = "<div class='alert alert-warning anim-shake' role='alert'>Riempi correttamente i campi!</div>";
+                return;
+            }else if(password != confirmPassword){
+                document.getElementById("RegisterError").innerHTML = "<div class='alert alert-warning anim-shake' role='alert'>Le due password non combaciano!</div>";
+                return;
+            }
+
+            xhttp = new  XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    if(this.responseText){
+                        document.getElementById("RegisterError").innerHTML = this.responseText;
+                    }else{
+                        location.reload();
+                    }
+                }
+            }
+
+            xhttp.open("POST", "action.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("nome"+nome+"&email="+email+"&password="+password+"&method=1");
+        }
+
+    </script>

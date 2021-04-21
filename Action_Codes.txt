@@ -1,0 +1,7 @@
+Codici delle rispettive azioni nella variabile globale $_POST["method"]
+
+0-Login
+1-Register
+2-Modifica dati utente
+3-Prestito
+4-Reso
