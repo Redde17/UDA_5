@@ -37,9 +37,8 @@
             if($exist){
                 echo '<div class="alert alert-danger anim-shake" role="alert">Account già esistente!</div>';
             }else{
-                $stmt = $conn->prepare("INSERT INTO utente(Nome, Email, Password1, Data_Registrazione) VALUES(?, ?, ?, ?)");
-                $current_date = date('Y-m-d');
-                $stmt->bind_param("ssss", $_POST["nome"], $_POST["email"], $_POST["password"], $current_date);
+                $stmt = $conn->prepare("INSERT INTO utente(Nome, Email, Password1) VALUES(?, ?, ?)");
+                $stmt->bind_param("sss", $_POST["nome"], $_POST["email"], $_POST["password"]);
                 $stmt->execute();
                 $stmt->close();
 
