@@ -3,9 +3,7 @@
         $DBhost = "localhost";
         $DBlogin = "root";
         $DBpass = "123";
-
-        //$DBname = "bibliotecaf"; 
-
+        
         $conn = new mysqli($DBhost, $DBlogin, $DBpass, $DBname);
 
         if($conn->connect_error){
