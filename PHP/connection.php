@@ -4,7 +4,7 @@
         $DBlogin = "root";
         $DBpass = "123";
 
-        $DBname = "bibliotecaf"; 
+        //$DBname = "bibliotecaf"; 
 
         $conn = new mysqli($DBhost, $DBlogin, $DBpass, $DBname);
 

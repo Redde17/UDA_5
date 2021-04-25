@@ -9,7 +9,8 @@
                 <div class="ml-5"><a href="cleanSession.php">Logout</a></div>';
         if ($_SESSION["email"] == "root@root.rt") {
             $_SESSION["admin"] = true;
-            echo '<p class="ml-2" style="color: red;">Account admin attivo</p>';
+            echo '<p class="ml-2" style="color: red;"><a href="modifica_inserimento.php">InserireLibro</a></p>
+                    <p class="ml-2" style="color: red;">Account admin attivo</p>';
         }
     } else {
         echo '<div class="ml-5" style="cursor: pointer;"><span class="iconify" data-icon="fa-solid:user-alt" data-inline="false" style="color: white;" onclick="Form()"></span></div>';

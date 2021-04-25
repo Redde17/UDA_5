@@ -198,7 +198,7 @@ date_default_timezone_set('Europe/Rome');
                 <?php
                     if(isset($_SESSION["admin"])){
                         echo '
-                        <form action="" method="POST">
+                        <form action="modifica_inserimento.php" method="POST">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3">
                                 <span class="iconify icona_libro mr-2" data-icon="fa-solid:pencil-ruler" data-inline="false" style="color: white;"></span>Modifica
                             </button>

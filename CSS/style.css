@@ -1,0 +1,387 @@
+:root{
+    --mainGreen: #77B748;
+    --mainDarkGreen: #649B3C;
+    --violet: #DF5EC5;
+    --blue: #4949D2;
+    --yellow: #E6E02F;
+    --red: #F16745;
+    --cyan: #7BC8A4;
+    --lightBlue: #4CC3D9;
+    --purple: #93648D;
+    --lightGrey: #DFDFDF;
+    --darkFontColor: #484848; 
+}
+
+
+.back {
+    top: 115px;
+    left: 0px;
+    width:auto;
+    height: 785px;
+    background: #F7F7F7 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+}
+
+input[type="text"] {
+    display: inline;
+    border: 2px dashed #707070;
+    opacity: 1;
+}
+
+textarea {
+    border: 2px dashed #707070;
+    opacity: 1;
+}
+
+input[type="number"] {
+    top: 799px;
+    left: 879px;
+    width: 49px;
+    height: 47px;
+    text-align: center;
+    font: normal normal bold 22px/37px Segoe UI;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.modifica {
+    width: 800px;
+}
+
+::placeholder {
+    color: #A5A5A5;
+}
+
+.titolo_text {
+    top: 164px;
+    left: 782px;
+    height: 103px;
+    width: 100%;
+    font: normal normal bold 40px Segoe UI;
+}
+
+.autore_text {
+    font: normal normal bold 19px/26px Segoe UI;
+    width: 97.35%;
+    height: 27px;
+}
+
+.form-control {
+    display: inline;
+}
+
+.editore_text {
+    font: normal normal bold 19px/26px Segoe UI;
+    width: 92.5%;
+    height: 27px;
+}
+
+.descrizione_text {
+    width: 100%;
+    height: 206px;
+    font: normal normal bold 20px/26px Segoe UI;
+}
+
+.casella {
+    margin-top: 7px;
+}
+
+
+
+.numero_text {
+    background: #77B748 0% 0% no-repeat padding-box;
+    border-radius: 26px;
+    box-shadow: 0px 4px #649B3C;
+    border: none;
+    opacity: 1;
+    outline: none;
+}
+
+.numero_text:hover {
+    box-shadow: 0px 4px #77B748;
+}
+
+.btn_invio {
+    background-color: #77B748;
+    color: #FFFFFF;
+    border-radius: 26px;
+    box-shadow: 0px 4px #649B3C;
+    border: none;
+    opacity: 1;
+    outline: none;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.btn_invio:hover {
+    box-shadow: 0px 4px #77B748;
+    color: #FFFFFF;
+}
+
+.verde_utilizzato {
+    color: #77B748;
+}
+
+.iconify {
+    width: 50px;
+    height: 50px;
+    line-height: 15px;
+    color: #77B748;
+}
+
+.icona_invio {
+    width: 24px;
+    height: 24px;
+}
+
+.generi_input {
+    top: 296px;
+    left: 782px;
+    width: 422px;
+    height: 211px;
+    border: 2px dashed #707070;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+/* Rettangolo Grande*/
+
+.pointer {
+    display: inline-block;
+    font-size: 3pt;
+    width: 100px;
+    /*larghezza*/
+    height: 4em;
+    position: relative;
+    background: gray;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0.6em;
+}
+
+.pointer:before {
+    content: "";
+    position: absolute;
+    right: -1.25em;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 1.25em solid gray;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+}
+
+/*Fine*/
+
+.pointer_large {
+    display: inline-block;
+    font-size: 3pt;
+    width: 154px;
+    /*larghezza*/
+    height: 4em;
+    position: relative;
+    background: gray;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0.6em;
+}
+
+.pointer_large:before {
+    content: "";
+    position: absolute;
+    right: -1.25em;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 1.25em solid gray;
+    border-top: 2em solid transparent;
+    border-bottom: 2em solid transparent;
+}
+
+.cnt {
+    position: absolute;
+    top: 1px;
+    left: 1em;
+    color: white;
+}
+
+.cnt p {
+    font: normal normal normal 10px Segoe UI;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+/*Rettangolo categorie*/
+
+/*Fine rettangolo categorie*/
+
+/*Inizio checkbox categorie*/
+
+.mycheckbox input[type="checkbox"] {
+    display: none;
+}
+
+.mycheckbox input[type="checkbox"] {
+    display: none;
+}
+
+/*.mycheckbox input[type="checkbox"]:checked + label {
+    
+}
+*/
+
+.label_tag {
+    text-align: left;
+    font: normal normal normal 11px/15px Segoe UI;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+/*Fube Checkbox categorie*/
+
+/*Inizio Immagine*/
+
+.parent {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.image1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 100px;
+}
+
+.image2 {
+    position: absolute;
+    top: 19.2px;
+    left: 146px;
+    transform: perspective(900px) rotateY(10deg);
+}
+
+.image_add {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    transform: perspective(900px) rotateY(10deg);
+}
+
+/*Fine Immagine*/
+
+/**/
+
+.freccia_su {
+    background-image: url('resources/up.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 9px;
+}
+
+.freccia_giu {
+    background-image: url('resources/down.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 9px;
+    padding-top: 15px;
+}
+
+/**/
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/*textarea:focus, input:focus{     
+    outline: none; 
+  }
+*/
+
+/*Rimuovere frecce input numeri*/
+
+/* Chrome, Safari, Edge, Opera */
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/*Fine rimozione frecce input numeri*/
+
+/*Rimuovere frecce input lista*/
+
+input::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/*Fine rimozione frecce input lista*/
+
+.input-container {
+    width: 296px;
+    display: inline-block;
+    border: 2px dashed #707070;
+}
+
+.input-container input:focus, .input-container input:active {
+    outline: none;
+}
+
+.input-container input {
+    width: 89%;
+    border: none;
+}
+
+.input-container button {
+    padding-right: 2px;
+    float: right;
+}
+
+.btn_invio_generi {
+    margin-top: 2px;
+    margin-right: 1px;
+    margin-bottom: 1.5px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-right: 2px;
+    padding-left: 2px;
+    box-shadow: 0px 1px #649B3C;
+    border-radius: 5px;
+}
+
+.btn_invio_generi:hover {
+    box-shadow: 0px 1px #77B748;
+    color: #FFFFFF;
+}
+
+
+.nomeautore{
+    width: 47.5%;
+}
+
+.cognomeautore{
+    width: 47.5%;
+}
+
+input[type="color"]{
+    height: 30px;
+    width: 25px;
+    background-color: transparent;
+    padding: 0%;
+    border-bottom: -1px;
+}
