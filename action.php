@@ -57,9 +57,8 @@
 
         case 3:
             //avvenimeto prestito
-            $stmt = $conn->prepare("INSERT INTO prestare(Email_Utente, ID_Libro, Data_Prestito) VALUES (?, ?, ?)");
-            $current_date = date('Y-m-d H:i:s');
-            $stmt->bind_param("sss", $_SESSION["email"], $_POST["ID"], $current_date);
+            $stmt = $conn->prepare("INSERT INTO prestare(Email_Utente, ID_Libro) VALUES (?, ?)");
+            $stmt->bind_param("ss", $_SESSION["email"], $_POST["ID"]);
             $stmt->execute();
             $stmt->close();
 
