@@ -3,9 +3,7 @@
         $DBhost = "localhost";
         $DBlogin = "root";
         $DBpass = "123";
-        
-        //test
-        
+
         $conn = new mysqli($DBhost, $DBlogin, $DBpass, $DBname);
 
         if($conn->connect_error){
