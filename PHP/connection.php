@@ -2,7 +2,7 @@
     function connection($DBname){
         $DBhost = "localhost";
         $DBlogin = "root";
-        $DBpass = "123";
+        $DBpass = "";
 
         $conn = new mysqli($DBhost, $DBlogin, $DBpass, $DBname);
 

@@ -79,13 +79,12 @@
 </head>
 
 <body style="overflow: hidden;">
-    <!-- NavBar temporanea -->
-    <div class="d-flex mb-3" style="background-color: #77B748; border: 1px solid #5F923A; height: 50px; width: 100%; margin: 0px; padding:0px;">
-        <div><a href="index.php"><img src="resources\Logo.png" alt="LOGO" height="46px" width="46px"></a></a></div>
-    </div>
+    <?php
+        //navbar
+        include "./PHP/Navbar.php";
+    ?>
 
-
-    <div class="back container-fluid">
+    <div class="back d-flex justify-content-center mt-2">
         <form action="php/update.php" method="POST" name="inputlibri" id="inputlibri" enctype="multipart/form-data">
             <?php
             //se si sta modificando un libro 

@@ -58,7 +58,7 @@ date_default_timezone_set('Europe/Rome');
                 ";
 
     //navbar
-    include "navbar.php";
+    include "./PHP/Navbar.php";
 
     //login form riutilizzabile
     include "loginForm.html";

@@ -58,11 +58,10 @@ if (!isset($_SESSION["logged"])) {
                          AND prestare.Data_Riconsegna IS NOT NULL";
 
     ?>
-
-    <!-- NavBar temporanea -->
-    <div class="d-flex" style="background-color: #77B748; border: 1px solid #5F923A; height: 50px; width: 100%; margin: 0px; padding:0px;">
-        <div class="ml-5"><a href="index.php">LOGO</a></div>
-    </div>
+    <?php
+        //navbar
+        include "./PHP/Navbar.php";
+    ?>
 
     <!-- Utente -->
     <div class="d-flex justify-content-center align-items-center mt-5" style="background-color: #F7F7F7; height: auto;">

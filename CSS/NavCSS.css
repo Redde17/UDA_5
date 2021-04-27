@@ -1,0 +1,33 @@
+:root{
+    --mainGreen: #77B748;
+    --mainDarkGreen: #649B3C;
+    --violet: #DF5EC5;
+    --blue: #4949D2;
+    --yellow: #E6E02F;
+    --red: #F16745;
+    --cyan: #7BC8A4;
+    --lightBlue: #4CC3D9;
+    --purple: #93648D;
+    --lightGrey: #DFDFDF;
+    --darkFontColor: #484848; 
+}
+
+.Nav{
+    background-color: var(--mainGreen);
+    color: white;
+}
+.dropdown-menu{
+    background-color:#fff;
+    border-radius: 0rem;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem ;
+}
+.dropdown-divider{
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+.exit{
+    color: var(--red);
+}
+.BackNav{
+    height: 72px;
+}
