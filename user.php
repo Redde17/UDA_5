@@ -4,6 +4,11 @@ session_start();
 if (!isset($_SESSION["logged"])) {
     header('Location: index.php');
 }
+
+if(!isset($_SESSION["language"])){
+    $_SESSION["language"] = "it";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +83,11 @@ if (!isset($_SESSION["logged"])) {
         function ifEmpty($text)
         {
             if ($text == "") {
-                echo "Vuoto";
+                if($_SESSION["language"] == "it"){
+                    echo "Vuoto";
+                } else {
+                    echo "Empty";
+                }
             } else {
                 echo $text;
             }
@@ -91,11 +100,11 @@ if (!isset($_SESSION["logged"])) {
 
         <div id="userDisplay" class="ml-4 d-flex flex-column">
             <div>
-                <p class="userLabel R-textVerySmall m-0 ">nome utente:</p>
+                <p class="userLabel R-textVerySmall m-0 "><?php if($_SESSION["language"] == "it"){ echo "Nome utente:"; }else{ echo "Username:"; } ?></p>
                 <p class="userText R-textLarge mb-1"><?php echo ifEmpty($_SESSION["nome"]) ?></p>
             </div>
 
-            <p class="userLabel R-textVerySmall m-0 mt-3">nome e cognome:</p>
+            <p class="userLabel R-textVerySmall m-0 mt-3"><?php if($_SESSION["language"] == "it"){ echo "Nome e cognome:"; }else{ echo "Name and surname:"; } ?></p>
             <div class="d-flex flex-row">
                 <p class="userText R-textLarge mb-1"><?php echo ifEmpty($_SESSION["nome"]) ?></p>
                 <p class="userText R-textLarge mb-1 ml-2"><?php echo ifEmpty($_SESSION["cognome"]) ?></p>
@@ -107,7 +116,7 @@ if (!isset($_SESSION["logged"])) {
             </div>
 
             <div class="mt-3">
-                <p class="userLabel R-textVerySmall m-0">Telefono:</p>
+                <p class="userLabel R-textVerySmall m-0"><?php if($_SESSION["language"] == "it"){ echo "Numero di telefono:"; }else{ echo "Telephone number:"; } ?></p>
                 <p class="userText R-textLarge mb-1"><?php echo ifEmpty($_SESSION["telefono"]) ?></p>
             </div>
         </div>
@@ -116,17 +125,17 @@ if (!isset($_SESSION["logged"])) {
         <div id="userModify" class="ml-4 d-flex flex-column w" style="display: none !important;">
             <form id="SubmitModify">
                 <div>
-                    <p class="userLabel R-textVerySmall m-0 ">nome utente:</p>
+                    <p class="userLabel R-textVerySmall m-0 "><?php if($_SESSION["language"] == "it"){ echo "Nome utente:"; }else{ echo "Username:"; } ?></p>
                     <!-- <p class="userText R-textLarge mb-1">a</p> -->
-                    <input id="modifyNomeUtente" class="userText R-textLarge mb-1 modifyInput" type="text" placeholder="Nome utente" value="<?php echo $_SESSION['nome'] ?>">
+                    <input id="modifyNomeUtente" class="userText R-textLarge mb-1 modifyInput" type="text" placeholder="<?php if($_SESSION["language"] == "it"){ echo "Nome utente"; }else{ echo "Username"; } ?>" value="<?php echo $_SESSION['nome'] ?>">
                 </div>
 
-                <p class="userLabel R-textVerySmall m-0 mt-1">nome e cognome:</p>
+                <p class="userLabel R-textVerySmall m-0 mt-1"><?php if($_SESSION["language"] == "it"){ echo "Nome e cognome:"; }else{ echo "Name and surname:"; } ?></p>
                 <div class="d-flex flex-row">
                     <!-- <p class="userText R-textLarge mb-1">a</p> -->
-                    <input id="modifyNome" class="userText R-textLarge mb-1 modifyInput" type="text" placeholder="Nome" value="<?php echo $_SESSION['nome'] ?>">
+                    <input id="modifyNome" class="userText R-textLarge mb-1 modifyInput" type="text" placeholder="<?php if($_SESSION["language"] == "it"){ echo "Nome"; }else{ echo "Name"; } ?>" value="<?php echo $_SESSION['nome'] ?>">
                     <!-- <p class="userText R-textLarge mb-1 ml-2">a</p> -->
-                    <input id="modifyCognome" class="userText R-textLarge mb-1 ml-2 modifyInput" type="text" placeholder="Cognome" value="<?php echo $_SESSION['cognome'] ?>">
+                    <input id="modifyCognome" class="userText R-textLarge mb-1 ml-2 modifyInput" type="text" placeholder="<?php if($_SESSION["language"] == "it"){ echo "Cognome"; }else{ echo "Surname"; } ?>" value="<?php echo $_SESSION['cognome'] ?>">
                 </div>
 
                 <div class="mt-1">
@@ -136,12 +145,12 @@ if (!isset($_SESSION["logged"])) {
                 </div>
 
                 <div class="mt-1">
-                    <p class="userLabel R-textVerySmall m-0">Telefono:</p>
+                    <p class="userLabel R-textVerySmall m-0"><?php if($_SESSION["language"] == "it"){ echo "Numero di telefono:"; }else{ echo "Telephone number:"; } ?></p>
                     <!-- <p class="userText R-textLarge mb-1">a</p> -->
-                    <input id="modifyTelefono" class="userText R-textLarge mb-1 modifyInput" type="tel" placeholder="Telefono" value="<?php echo $_SESSION['telefono'] ?>">
+                    <input id="modifyTelefono" class="userText R-textLarge mb-1 modifyInput" type="tel" placeholder="<?php if($_SESSION["language"] == "it"){ echo "Numero di telefono"; }else{ echo "Telephone number"; } ?>" value="<?php echo $_SESSION['telefono'] ?>">
                 </div>
 
-                <input type="submit" class="submitBtn RB-btn btn-lg mt-3 mb-4" value="Modifica" onclick="modifyUtente()">
+                <input type="submit" class="submitBtn RB-btn btn-lg mt-3 mb-4" value="<?php if($_SESSION["language"] == "it"){ echo "Modifica"; }else{ echo "Modify"; } ?>" onclick="modifyUtente()">
             </form>
         </div>
     </div>
@@ -152,7 +161,7 @@ if (!isset($_SESSION["logged"])) {
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">In prestito</h4>
+            <h4 class="float-left divBookTitolo"><?php if($_SESSION["language"] == "it"){ echo "In prestito"; }else{ echo "Borrowed"; } ?></h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">
@@ -221,7 +230,11 @@ if (!isset($_SESSION["logged"])) {
             } else {
                 echo '
                         <div id="content" class="d-flex justify-content-center align-items-center p-0 m-0 ml-4" style="height: 233px; width: 100%;"> 
-                                <h2>Non hai libri in questa categoria</h2>
+                                <h2>'; 
+                                
+                                if($_SESSION["language"] == "it"){ echo "Non hai libri in questa categoria"; }else{ echo "You have no book in this category"; }
+                            
+                                echo '</h2>
                         </div>
                     ';
             }
@@ -236,7 +249,7 @@ if (!isset($_SESSION["logged"])) {
         <div class="divBook mt-5">
             <div style="width: 100%; height: 50px;">
                 <!-- Scritta categoria -->
-                <h4 class="float-left divBookTitolo">Libri letti</h4>
+                <h4 class="float-left divBookTitolo"> <?php if($_SESSION["language"] == "it"){ echo "Libri letti"; }else{ echo "Readed books"; } ?></h4>
 
                 <!-- Tasti per lo scroll -->
                 <div class="float-right" style="margin-right: 10px;">
@@ -306,7 +319,11 @@ if (!isset($_SESSION["logged"])) {
                     //echo 'nessuna riga trovata';
                     echo '
                         <div id="content" class="d-flex justify-content-center align-items-center p-0 m-0 ml-4" style="height: 233px; width: 100%;"> 
-                                <h2>Non hai libri in questa categoria</h2>
+                                <h2>'; 
+                                
+                                if($_SESSION["language"] == "it"){ echo "Non hai libri in questa categoria"; }else{ echo "You have no book in this category"; }
+                            
+                                echo '</h2>
                         </div>
                     ';
                 }

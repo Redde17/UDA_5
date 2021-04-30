@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["language"])){
+    $_SESSION["language"] = "it";
+}
+
+//test variable
+$_SESSION["language"] = "eng";
+
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +38,6 @@ session_start();
     <?php
     include "PHP/connection.php";
     $conn = connection("biblioteca");
-
-    //test push
-
     
     //query
 
@@ -90,7 +95,7 @@ session_start();
             <!--Qui ci vanno le Stelle se le facciamo-->
             <form action="book.php" method="GET">
                 <input type="hidden" name="ID" value="<?php echo $row['ID'] ?>">
-                <button type="submit" class="R-btn" style="margin-top: 50px;"><span class="iconify icona_invio" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span> Vai alla pagina del libro</button>
+                <button type="submit" class="R-btn" style="margin-top: 50px;"><span class="iconify icona_invio" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span><?php if($_SESSION["language"] == "it"){ echo "Vai alla pagine del libro"; }else{ echo "Visit the book page"; } ?></button>
             </form>
         </div>
     </div>
@@ -103,7 +108,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="mdi:feather" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Romanzi" id="aRomanzi">
-                <p class="categoryText" style="color: #93648D;">Romanzi</p>
+                <p class="categoryText" style="color: #93648D;"><?php if($_SESSION["language"] == "it"){ echo "Romanzi"; }else{ echo "Novels"; } ?></p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -113,7 +118,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="raphael:wrench" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Tecnica" id="aTecnica">
-                <p class="categoryText" style="color: #4CC3D9;">Tecnica</p>
+                <p class="categoryText" style="color: #4CC3D9;"><?php if($_SESSION["language"] == "it"){ echo "Tecnica"; }else{ echo "Technology"; } ?></p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -123,7 +128,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="ph:pen-nib-fill" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Poesie" id="aPoesie">
-                <p class="categoryText" style="color: #7BC8A4;">Poesie</p>
+                <p class="categoryText" style="color: #7BC8A4;"><?php if($_SESSION["language"] == "it"){ echo "Poesia"; }else{ echo "Poetry"; } ?></p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -133,7 +138,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="wpf:mouse" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Informatica" id="aInformatica">
-                <p class="categoryText" style="color: #F16745;">Informatica</p>
+                <p class="categoryText" style="color: #F16745;"><?php if($_SESSION["language"] == "it"){ echo "Informatica"; }else{ echo "IT"; } ?></p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -153,7 +158,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="ri:file-paper-2-line" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Poema" id="aPoema">
-                <p class="categoryText" style="color: #4949D2;">Poema</p>
+                <p class="categoryText" style="color: #4949D2;"><?php if($_SESSION["language"] == "it"){ echo "Poema"; }else{ echo "Poem"; } ?></p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -163,7 +168,7 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="bi:stars" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Nuovi" id="aNuovi">
-                <p class="categoryText" style="color: #DF5EC5;">Nuovi</p>
+                <p class="categoryText" style="color: #DF5EC5;"><?php if($_SESSION["language"] == "it"){ echo "Nuovi"; }else{ echo "News"; } ?></p>
             </a>
         </div>
     </div>
@@ -174,7 +179,7 @@ session_start();
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">Scopri i libri presenti</h4>
+            <h4 class="float-left divBookTitolo"><?php if($_SESSION["language"] == "it"){ echo "Scopri i nostri libri"; }else{ echo "Discover our books"; } ?></h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">
@@ -255,7 +260,7 @@ session_start();
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">Aggiunti di recente</h4>
+            <h4 class="float-left divBookTitolo"><?php if($_SESSION["language"] == "it"){ echo "Aggiunti di recente"; }else{ echo "Added recently"; } ?></h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">
