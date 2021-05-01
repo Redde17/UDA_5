@@ -6,7 +6,7 @@ if(!isset($_SESSION["language"])){
 }
 
 //test variable
-$_SESSION["language"] = "eng";
+//$_SESSION["language"] = "eng";
 
 ?>
 

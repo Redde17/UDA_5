@@ -221,7 +221,7 @@ if(!isset($_SESSION["language"])){
                             <input type="hidden" name="ID" value="' . $_GET["ID"] . '">
                         </form>  
 
-                        <form action="" method="POST">
+                        <form action="grafici.php?ID=4&IDBOOK='. $_GET["ID"] .'" method="POST">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3">
                                 <span class="iconify icona_libro mr-2" data-icon="oi:graph" data-inline="false" style="color: white;"></span>';
 
@@ -229,7 +229,6 @@ if(!isset($_SESSION["language"])){
 
                                 echo '
                             </button>
-                            <input type="hidden" name="ID" value="' . $_GET["ID"] . '">
                         </form>  
                         ';
                     }

@@ -41,6 +41,12 @@ body {
   border-radius: 16px;
 }
 
+.iconify {
+  color: white;
+  height: 20px;
+  width: 20px;
+}
+
 .icone {
   color: #707070;
   height: 70px;
@@ -106,7 +112,7 @@ a:hover {
 /*INIZIO RETTANGOLINI*/
 
 .rettangolo_verde {
-  padding: 1px 1px 1px 1px;
+  padding: 5px 5px 5px 5px;
   width: max-content;
   text-align: center;
   color: #77B748;
@@ -116,9 +122,14 @@ a:hover {
   border-radius: 7px;
 }
 
+.rettangolo_verde:hover{
+  color: #77B748;
+  border: 1px solid #77B748;
+}
+
 .rettangolo_giallo {
   align-items: center;
-  padding: 1px 1px 1px 1px;
+  padding: 5px 5px 5px 5px;
   width: max-content;
   text-align: center;
   color: #FFB300;
@@ -127,9 +138,13 @@ a:hover {
   border: 1px solid #FFB300;
   border-radius: 7px;
 }
+.rettangolo_giallo:hover{
+  color: #FFB300;
+  border: 1px solid #FFB300;
+}
 
 .rettangolo_rosso {
-  padding: 1px 1px 1px 1px;
+  padding: 5px 5px 5px 5px;
   width: max-content;
   text-align: center;
   color: #FF0000;
@@ -139,19 +154,59 @@ a:hover {
   border-radius: 7px;
 }
 
+.rettangolo_rosso:hover{
+  color: #FF0000;
+  border: 1px solid #FF0000;
+}
+
 .tratteggiato {
   border: 1px dashed;
 }
 
 /*FINE RETTANGOLINI*/
 
-.table{
+.table {
   font: normal normal normal 14px/16px Arial;
 }
 
-thead{
+thead {
   background-color: var(--mainGreen);
   color: white;
   font: normal normal normal 22px/26px Arial;
 }
 
+/*Bottoni*/
+
+.btn-primary {
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 9px;
+  background-color: var(--mainGreen);
+  border-color: unset;
+}
+
+.btn-primary:hover {
+  background-color: var(--mainGreen);
+  border-color: unset;
+}
+
+.btn-secondary {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 9px;
+  color: #BCBCBC;
+  border-color: unset;
+}
+.btn-secondary:hover{
+  background-color: #FFFFFF;
+  border-color: unset;
+  color: #BCBCBC;
+}
+
+.disabled{
+  opacity: 0.5;
+}
+
+input[type=checkbox]{
+  display:initial;
+  margin-right: 2px;
+}
