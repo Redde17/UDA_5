@@ -154,7 +154,6 @@ Grafico a barre: Libri più letti (MAX 3)
         $query = $db_connection->query($query);
         $row = mysqli_fetch_row($query);
 
-
         $rows = $row[0];
 
         $page_rows = 13; //Righe massime
@@ -207,6 +206,9 @@ Grafico a barre: Libri più letti (MAX 3)
         $paginationCtrls = '';
 
         if ($last != 1) {
+            if ($pagenum == 1) {
+                $paginationCtrls .= '<a class="btn btn-default disabled"> < </a> &nbsp; ';
+            }
 
             if ($pagenum > 1) {
                 $previous = $pagenum - 1;
@@ -214,7 +216,7 @@ Grafico a barre: Libri più letti (MAX 3)
                 if (isset($typedato)) {
                     $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default">Precedente</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default"> < </a> &nbsp;';
 
                 for ($i = $pagenum - 4; $i < $pagenum; $i++) {
                     if ($i > 0) {
@@ -227,28 +229,37 @@ Grafico a barre: Libri più letti (MAX 3)
                 }
             }
 
-            $paginationCtrls .= '' . $pagenum . ' &nbsp; ';
+            $paginationCtrls .= '<a class="btn btn-default disabled">' . $pagenum . '</a> &nbsp; '; //PAGINA CORRENTE
 
             for ($i = $pagenum + 1; $i <= $last; $i++) {
                 $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
                 if (isset($typedato)) {
                     $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
+                $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default"';
+                if (isset($_GET['PN']) && $_GET['PN'] == $i) {
+                    echo 'miao';
+                    $paginationCtrls .= ' style=" color: green"';
+                }
+                $paginationCtrls .= '>' . $i . '</a> &nbsp; ';
 
                 if ($i >= $pagenum + 4) {
                     break;
                 }
             }
 
+            if ($pagenum == $last) {
+                $paginationCtrls .= '<a class="btn btn-default disabled"> > </a> ';
+            }
+
             if ($pagenum != $last) {
                 $next = $pagenum + 1;
 
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
                 if (isset($typedato)) {
                     $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls .= '&PN    =' . $next . '" class="btn btn-default">Successivo</a> ';
+                $paginationCtrls .= '&PN=' . $next . '" class="btn btn-default"> > </a> ';
             }
         }
     } else if ($iddato == 3) {
@@ -314,13 +325,17 @@ Grafico a barre: Libri più letti (MAX 3)
 
         if ($last != 1) {
 
+            if ($pagenum == 1) {
+                $paginationCtrls .= '<a class="btn btn-default disabled"> < </a> &nbsp;';
+            }
+
             if ($pagenum > 1) {
                 $previous = $pagenum - 1;
                 $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
                 if (isset($typedato)) {
                     $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default">Precedente</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default"><</a> &nbsp; ';
 
                 for ($i = $pagenum - 4; $i < $pagenum; $i++) {
                     if ($i > 0) {
@@ -333,7 +348,7 @@ Grafico a barre: Libri più letti (MAX 3)
                 }
             }
 
-            $paginationCtrls .= '' . $pagenum . ' &nbsp; ';
+            $paginationCtrls .= '<a class="btn btn-default disabled">' . $pagenum . '</a> &nbsp; '; //PAGINA CORRENTE
 
             for ($i = $pagenum + 1; $i <= $last; $i++) {
                 $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
@@ -347,21 +362,26 @@ Grafico a barre: Libri più letti (MAX 3)
                 }
             }
 
+            if ($pagenum == $last) {
+                $paginationCtrls .= '<a class="btn btn-default disabled"> > </a> ';
+            }
+
             if ($pagenum != $last) {
                 $next = $pagenum + 1;
 
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
                 if (isset($typedato)) {
                     $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls .= '&PN    =' . $next . '" class="btn btn-default">Successivo</a> ';
+                $paginationCtrls .= '&PN=' . $next . '" class="btn btn-default">></a> ';
             }
         }
+
     } elseif ($iddato == 4) {
         @$typedato = $_GET['TYPE'];
         @$IDBOOK = $_GET['IDBOOK'];
         if (!isset($IDBOOK)) {
-            echo '<script>window.location.href = "http://localhost/UDA/grafici.php";</script>'; //TODO:CAMBIARE QUANDO SI TROVA SUL SERVER
+            echo '<script>window.location.href = "http://localhost/UDA_5/grafici.php";</script>'; //TODO:CAMBIARE QUANDO SI TROVA SUL SERVER
         } else {
             //INIZIO QUERY INPAGINAZIONE
             $query = "SELECT COUNT(*) FROM prestare,utente,libro WHERE prestare.ID_libro = " . $IDBOOK . " AND prestare.Email_Utente = utente.Email AND prestare.ID_Libro = libro.ID";
@@ -665,52 +685,58 @@ Grafico a barre: Libri più letti (MAX 3)
 </form>';
                 }
             } elseif ($iddato == 3) {
-                    echo '<form style="margin-top:unset; display:contents;" action="php/update_prestiti.php" method="POST" name="inputprestiti" id="inputprestiti" enctype="multipart/form-data">
-                    <table class="table';if ($rows == 0) {}else{echo' table-bordered';}echo'">
+                echo '<form style="margin-top:unset; display:contents;" action="php/update_prestiti.php" method="POST" name="inputprestiti" id="inputprestiti" enctype="multipart/form-data">
+                    <table class="table';
+                if ($rows == 0) {
+                } else {
+                    echo ' table-bordered';
+                }
+                echo '">
                 <thead>
                 <th><a href="grafici.php?ID=3&TYPE=utente">Utente';
-                    if ($typedato == "utente") {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
-                    } else {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
-                    }
-                    echo '</a></th>
+                if ($typedato == "utente") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
                 
                 <th><a href="grafici.php?ID=3&TYPE=libro">Libro';
-                    if ($typedato == "libro") {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
-                    } else {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
-                    }
-                    echo '</a></th>
+                if ($typedato == "libro") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
 
                 <th><a href="grafici.php?ID=3&TYPE=dataprestito">Data Prestito';
-                    if ($typedato == "dataprestito") {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
-                    } else {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
-                    }
-                    echo '</a></th>
+                if ($typedato == "dataprestito") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
 
                 <th><a href="grafici.php?ID=3&TYPE=datareso">Data Reso';
-                    if ($typedato == "datareso") {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
-                    } else {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
-                    }
-                    echo '</a></th>
+                if ($typedato == "datareso") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
 
                 <th><a href="grafici.php?ID=3&TYPE=stato">Stato';
-                    if ($typedato == "stato") {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
-                    } else {
-                        echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
-                    }
-                    echo '</a></th>
+                if ($typedato == "stato") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
                 </thead>';
                 if ($rows == 0) {
                     echo '<tbody><td></td><td></td><td><h1 class="h2">Nessun prestito effettuato</h1></td></tbody>';
-                }else{echo'
+                } else {
+                    echo '
                 <tbody>';
                     while ($crow = mysqli_fetch_array($nquery)) {
                         echo ' <tr>
@@ -727,24 +753,33 @@ Grafico a barre: Libri più letti (MAX 3)
                         }
                         echo '</tr>';
                     }
-                    echo '</tbody>';}
-            echo'</table>
+                    echo '</tbody>';
+                }
+                echo '</table>
             <div id="pagination_controls" class="" style="display:flex;align-items:center;">' . $paginationCtrls . '</div>
             <div class="d-flex justify-content-end" style="width:-webkit-fill-available";>';
-            if ($rows == 0) {}else{echo'<button type="submit" style="margin-right:4px" name="scelta" id="scelta" class="rettangolo_verde ';
+                if ($rows == 0) {
+                } else {
+                    echo '<button type="submit" style="margin-right:4px" name="scelta" id="scelta" class="rettangolo_verde ';
                     if ($countnoreso == 0) {
                         echo 'disabled" value="chiudi"disabled';
                     } else {
                         echo 'tratteggiato" value="chiudi"';
                     }
                     echo '>Chiudi Prestito</button>
-                    <!--<button type="submit" name="scelta" id="scelta" class="rettangolo_rosso tratteggiato" value="rimuovi">Rimuovi</button>-->';}
-                echo'
+                    <!--<button type="submit" name="scelta" id="scelta" class="rettangolo_rosso tratteggiato" value="rimuovi">Rimuovi</button>-->';
+                }
+                echo '
             </div>
 </form>';
             } elseif ($iddato == 4) {
                 echo '
-                <table class="table';if ($rows == 0) {}else{echo' table-bordered';}echo'">
+                <table class="table';
+                if ($rows == 0) {
+                } else {
+                    echo ' table-bordered';
+                }
+                echo '">
                 <thead>
                 <th><a href="grafici.php?ID=4&IDBOOK=' . $IDBOOK . '&TYPE=utente">Utente';
                 if ($typedato == "utente") {
@@ -797,7 +832,7 @@ Grafico a barre: Libri più letti (MAX 3)
                     }
                     echo '</tbody>';
                 }
-                echo'</table>
+                echo '</table>
                 <div id="pagination_controls" class="" style="display:flex;align-items:center;">' . $paginationCtrls . '</div>
                  </div>
     </form>';

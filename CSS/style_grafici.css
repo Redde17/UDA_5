@@ -196,6 +196,7 @@ thead {
   color: #BCBCBC;
   border-color: unset;
 }
+
 .btn-secondary:hover{
   background-color: #FFFFFF;
   border-color: unset;
@@ -208,5 +209,21 @@ thead {
 
 input[type=checkbox]{
   display:initial;
+  height: initial;
+  width: initial;
   margin-right: 2px;
+}
+
+.btn-default{
+  background: var(--mainGreen) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 9px;
+  color: white;
+  border-color: transparent;
+}
+
+.btn-default:hover{
+  background-color: #FFFFFF;
+  border-color: unset;
+  color: #BCBCBC;
 }

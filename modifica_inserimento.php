@@ -79,13 +79,13 @@
 
     </div>
     <div class="back d-flex justify-content-center mt-2">
-        <form action="php/update.php" method="POST" name="inputlibri" id="inputlibri" enctype="multipart/form-data">
+        <form action="php/update.php" method="POST" name="inputlibri" id="inputlibri" enctype="multipart/form-data" onsubmit="return false;">
             <?php
             //se si sta modificando un libro 
             if (isset($iddato)) {
                 echo '<input type="hidden" name="id" id="id" value="' . $iddato . '">';
             }
-            if (isset($controldato)){
+            if (isset($controldato)) {
                 echo '<input type="hidden" id="control" name="control" value="1"></input>';
             }
             ?>
@@ -195,7 +195,7 @@
         <!--Fine Inserimento libri disponibili -->
 
         <!--Bottone Invio -->
-        <button type="submit" name="submit" value="submit" class="btn_invio">
+        <button type="submit" name="submit" value="submit" class="btn_invio" onclick="controllo()">
             <span class="iconify icona_invio" style="color: #FFFFFF;" data-icon="ic:baseline-library-add" data-inline="false"></span>
             <?php if (isset($iddato)) {
                 echo 'Aggiorna libro';
@@ -419,6 +419,31 @@
     });
     //FINE PREWIEW IMMAGINE
     provaclick();
+
+    $(function() {
+        var $form = $('form#inputlibri');
+        $form.removeAttr('onsubmit');
+
+        $cbx_group = $("input:checkbox[name='categorie[]']");
+        $cbx_group.prop('required', true);
+        /*$form.submit(function(ev) {
+            if ($("input:checkbox[name='categorie[]']:checked").length == 0) {
+                ev.preventDefault();
+                alert("miao");
+            }else{
+                alert("sono dentro");
+                $cbx_group.prop('required', false);
+            }
+        });*/
+    });
+
+    function controllo(){
+            if ($("input:checkbox[name='categorie[]']:checked").length == 0) {
+                $form.preventDefault();
+            }else{
+                $cbx_group.prop('required', false);
+            }
+        }
 </script>
 
 </html>

@@ -1,7 +1,7 @@
 <?php
 include("connection.php");
 $db_connection = connection("biblioteca");
-$ID = $_POST['ID'];
+$ID = $_GET['ID'];
 
 $select = "DELETE FROM prestare WHERE ID_Libro=?";
 $stmt = $db_connection->prepare($select);

@@ -1,4 +1,4 @@
-:root{
+:root {
     --mainGreen: #77B748;
     --mainDarkGreen: #649B3C;
     --violet: #DF5EC5;
@@ -9,14 +9,13 @@
     --lightBlue: #4CC3D9;
     --purple: #93648D;
     --lightGrey: #DFDFDF;
-    --darkFontColor: #484848; 
+    --darkFontColor: #484848;
 }
-
 
 .back {
     top: 115px;
     left: 0px;
-    width:auto;
+    width: auto;
     height: 785px;
     background: #F7F7F7 0% 0% no-repeat padding-box;
     opacity: 1;
@@ -88,8 +87,6 @@ input[type="number"] {
     margin-top: 7px;
 }
 
-
-
 .numero_text {
     background: #77B748 0% 0% no-repeat padding-box;
     border-radius: 26px;
@@ -148,8 +145,15 @@ input[type="number"] {
 }
 
 input[type="checkbox"] {
-    display: none;
+    display: block;
+    width: 0.5px;
+    height: 0.5px;
 }
+
+input[type="checkbox"]:focus {
+    outline: none !important;
+}
+
 
 /* Rettangolo Grande*/
 
@@ -369,16 +373,15 @@ input::-webkit-calendar-picker-indicator {
     color: #FFFFFF;
 }
 
-
-.nomeautore{
+.nomeautore {
     width: 47.5%;
 }
 
-.cognomeautore{
+.cognomeautore {
     width: 47.5%;
 }
 
-input[type="color"]{
+input[type="color"] {
     height: 30px;
     width: 25px;
     background-color: transparent;
