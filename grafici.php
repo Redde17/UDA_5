@@ -25,23 +25,24 @@ Grafico a barre: Libri più letti (MAX 3)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <!-- Fine Bootstrap-->
     <!--iconify -->
-    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    
     <!-- fine iconify-->
     <!--Inizio CSS personalizzato-->
     <style>
         <?php
 
-use function PHPSTORM_META\type;
+        use function PHPSTORM_META\type;
 
-include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
+        include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
     </style>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js" integrity="sha256-lISRn4x2bHaafBiAb0H5C7mqJli7N0SH+vrapxjIz3k=" crossorigin="anonymous"></script>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 </head>
 
 <body>
     <?php
-    @$iddato = $_GET['id'];
+    @$iddato = $_GET['ID'];
     include("php/connection.php");
     $db_connection = connection("biblioteca");
     if ($iddato == 1 || !isset($iddato)) {
@@ -104,7 +105,7 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
         $countautori;
         $countgeneri;
         $countutenti;
-    
+
         $query = "SELECT (SELECT COUNT(*) FROM libro) as libri,(SELECT COUNT(*) FROM utente) AS utenti,(SELECT COUNT(*) FROM autore) AS autori,(SELECT COUNT(*) FROM categoria) as generi FROM prestare LIMIT 1";
         $inter = $db_connection->query($query);
         if ($inter->num_rows > 0) {
@@ -117,16 +118,31 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
         }
 
         //FINE QUINTA QUERY
-    } else if ($iddato == 3) {
-        @$typedato = $_GET['type']; 
-        //INIZIO QUERY INPAGINAZIONE
-        $query = "SELECT COUNT(*) FROM prestare";
+
+        echo '<script>
+        var nomelibro = ' . json_encode($nomelibro) . ';
+        var contolibro = ' . json_encode($contolibro) . ';
+
+        var nomecategoria = ' . json_encode($nomecategoria) . ';
+        var contocategoria = ' . json_encode($contocategoria) . ';
+
+        var nonrestituiti = ' . json_encode($nonrestituiti) . ';
+        var restituiti = ' . json_encode($restituiti) . ';
+
+        var mesi = ' . json_encode($mesi) . ';
+        var val = ' . json_encode($val) . ';
+    </script>';
+    } elseif ($iddato == 2) {
+        @$typedato = $_GET['TYPE'];
+        //INIZIO QUERY IMPAGINAZIONE LIBRO
+        $query = "SELECT COUNT(*) FROM libro";
         $query = $db_connection->query($query);
         $row = mysqli_fetch_row($query);
 
+
         $rows = $row[0];
 
-        $page_rows = 3; //Righe massime
+        $page_rows = 13; //Righe massime
 
         $last = ceil($rows / $page_rows);
 
@@ -136,8 +152,8 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
 
         $pagenum = 1;
 
-        if (isset($_GET['pn'])) {
-            $pagenum = preg_replace('#[^0-9]#', '', $_GET['pn']);
+        if (isset($_GET['PN'])) {
+            $pagenum = preg_replace('#[^0-9]#', '', $_GET['PN']);
         }
 
         if ($pagenum < 1) {
@@ -148,31 +164,28 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
 
         $limit = 'LIMIT ' . ($pagenum - 1) * $page_rows . ',' . $page_rows;
 
-        $istruzione = "SELECT utente.Nome as Nome, utente.Cognome as Cognome,libro.Titolo as Titolo, prestare.Data_Prestito as Prestito, prestare.Data_Riconsegna as Riconsegna FROM utente,libro,prestare WHERE utente.Email = prestare.Email_Utente AND prestare.ID_Libro = libro.ID";
+        $istruzione = "SELECT libro.Titolo as Titolo, editore.Nome as Nomeeditore, libro.Numero_Copie as Numero_Copie, libro.Immagine as Immagine, autore.Nome as Nomeautore, autore.Cognome as Cognomeautore,Libro.ID as ID FROM libro,autore,editore WHERE libro.Codice_Editore = editore.Codice AND libro.ID_Autore = autore.ID";
         switch ($typedato) {
-            case 'utente':
-                $istruzione=$istruzione." ORDER BY utente.Nome";
+            case 'titolo':
+                $istruzione = $istruzione . " ORDER BY libro.Titolo";
                 break;
-            
-            case 'libro':
-                $istruzione = $istruzione." ORDER BY libro.Titolo";
+
+            case 'editore':
+                $istruzione = $istruzione . " ORDER BY editore.Nome";
                 break;
-            
-            case 'dataprestito':
-                $istruzione = $istruzione." ORDER BY prestare.Data_Prestito";
+
+            case 'autore':
+                $istruzione = $istruzione . " ORDER BY autore.Nome";
                 break;
-            
-            case 'datareso':
-                $istruzione = $istruzione." ORDER BY prestare.Data_Riconsegna DESC";
+
+            case 'copie':
+                $istruzione = $istruzione . " ORDER BY libro.Numero_Copie DESC";
                 break;
-            
-            case 'stato':
-                $istruzione = $istruzione." ORDER BY prestare.Data_Riconsegna DESC";
             default:
                 # code...
                 break;
         }
-        $istruzione= $istruzione.' '.$limit;
+        $istruzione = $istruzione . ' ' . $limit;
         $nquery = $db_connection->query($istruzione);
 
 
@@ -182,19 +195,19 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
 
             if ($pagenum > 1) {
                 $previous = $pagenum - 1;
-                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?id=3';
-                if(isset($typedato)){
-                    $paginationCtrls.= '&type='.$typedato;
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls.= '&pn=' . $previous . '" class="btn btn-default">Previous</a> &nbsp; &nbsp; ';
+                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default">Precedente</a> &nbsp; &nbsp; ';
 
                 for ($i = $pagenum - 4; $i < $pagenum; $i++) {
                     if ($i > 0) {
-                        $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?id=3';
-                        if(isset($typedato)){
-                            $paginationCtrls.= '&type='.$typedato;
+                        $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
+                        if (isset($typedato)) {
+                            $paginationCtrls .= '&TYPE=' . $typedato;
                         }
-                        $paginationCtrls.= '&pn=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
+                        $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
                     }
                 }
             }
@@ -202,11 +215,11 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
             $paginationCtrls .= '' . $pagenum . ' &nbsp; ';
 
             for ($i = $pagenum + 1; $i <= $last; $i++) {
-                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?id=3';
-                if(isset($typedato)){
-                    $paginationCtrls.= '&type='.$typedato;
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                $paginationCtrls.= '&pn=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
+                $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
 
                 if ($i >= $pagenum + 4) {
                     break;
@@ -215,43 +228,137 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
 
             if ($pagenum != $last) {
                 $next = $pagenum + 1;
-                
-                $paginationCtrls .= ' &nbsp; &nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?id=3';
-                if(isset($typedato)){
-                    $paginationCtrls.= '&type='.$typedato;
+
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?ID=2';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
                 }
-                '&pn=' . $next . '" class="btn btn-default">Next</a> ';
+                $paginationCtrls .= '&PN    =' . $next . '" class="btn btn-default">Successivo</a> ';
+            }
+        }
+    } else if ($iddato == 3) {
+        @$typedato = $_GET['TYPE'];
+        //INIZIO QUERY INPAGINAZIONE
+        $query = "SELECT COUNT(*) FROM prestare";
+        $query = $db_connection->query($query);
+        $row = mysqli_fetch_row($query);
+
+        $rows = $row[0];
+
+        $page_rows = 12; //Righe massime
+
+        $last = ceil($rows / $page_rows);
+
+        if ($last < 1) {
+            $last = 1;
+        }
+
+        $pagenum = 1;
+
+        if (isset($_GET['PN'])) {
+            $pagenum = preg_replace('#[^0-9]#', '', $_GET['PN']);
+        }
+
+        if ($pagenum < 1) {
+            $pagenum = 1;
+        } else if ($pagenum > $last) {
+            $pagenum = $last;
+        }
+
+        $limit = 'LIMIT ' . ($pagenum - 1) * $page_rows . ',' . $page_rows;
+
+        $istruzione = "SELECT utente.Nome as Nome, utente.Cognome as Cognome,libro.Titolo as Titolo, prestare.Data_Prestito as Prestito, prestare.Data_Riconsegna as Riconsegna, prestare.Email_utente as Email, prestare.ID_Libro as ID FROM utente,libro,prestare WHERE utente.Email = prestare.Email_Utente AND prestare.ID_Libro = libro.ID";
+        switch ($typedato) {
+            case 'utente':
+                $istruzione = $istruzione . " ORDER BY utente.Nome";
+                break;
+
+            case 'libro':
+                $istruzione = $istruzione . " ORDER BY libro.Titolo";
+                break;
+
+            case 'dataprestito':
+                $istruzione = $istruzione . " ORDER BY prestare.Data_Prestito";
+                break;
+
+            case 'datareso':
+                $istruzione = $istruzione . " ORDER BY prestare.Data_Riconsegna DESC";
+                break;
+
+            case 'stato':
+                $istruzione = $istruzione . " ORDER BY prestare.Data_Riconsegna DESC";
+            default:
+                # code...
+                break;
+        }
+        $istruzione = $istruzione . ' ' . $limit;
+        $nquery = $db_connection->query($istruzione);
+
+
+        $paginationCtrls = '';
+
+        if ($last != 1) {
+
+            if ($pagenum > 1) {
+                $previous = $pagenum - 1;
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
+                }
+                $paginationCtrls .= '&PN=' . $previous . '" class="btn btn-default">Precedente</a> &nbsp; &nbsp; ';
+
+                for ($i = $pagenum - 4; $i < $pagenum; $i++) {
+                    if ($i > 0) {
+                        $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
+                        if (isset($typedato)) {
+                            $paginationCtrls .= '&TYPE=' . $typedato;
+                        }
+                        $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
+                    }
+                }
+            }
+
+            $paginationCtrls .= '' . $pagenum . ' &nbsp; ';
+
+            for ($i = $pagenum + 1; $i <= $last; $i++) {
+                $paginationCtrls .= '<a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
+                }
+                $paginationCtrls .= '&PN=' . $i . '" class="btn btn-default">' . $i . '</a> &nbsp; ';
+
+                if ($i >= $pagenum + 4) {
+                    break;
+                }
+            }
+
+            if ($pagenum != $last) {
+                $next = $pagenum + 1;
+
+                $paginationCtrls .= ' &nbsp; &nbsp; <a href="' . $_SERVER['PHP_SELF'] . '?ID=3';
+                if (isset($typedato)) {
+                    $paginationCtrls .= '&TYPE=' . $typedato;
+                }
+                $paginationCtrls .= '&PN    =' . $next . '" class="btn btn-default">Successivo</a> ';
             }
         }
     }
-    
+
     ?>
 
-    <script>
-        var nomelibro = <?php echo json_encode($nomelibro); ?>;
-        var contolibro = <?php echo json_encode($contolibro); ?>;
 
-        var nomecategoria = <?php echo json_encode($nomecategoria); ?>;
-        var contocategoria = <?php echo json_encode($contocategoria); ?>;
 
-        var nonrestituiti = <?php echo json_encode($nonrestituiti); ?>;
-        var restituiti = <?php echo json_encode($restituiti); ?>;
-
-        var mesi = <?php echo json_encode($mesi); ?>;
-        var val = <?php echo json_encode($val); ?>;
-    </script>
-
-    <div class="w3-sidebar w3-text-white w3-bar-block" style="width:16%">
+    <div class="w3-sidebar w3-text-white w3-bar-block" style="width:20%">
         <a href="index.php">
             <h3 class="w3-bar-item"><img src="resources/Logo.png" alt="" srcset="" style="height:56px;width:56px; margin-right:5px">Web Book Library</h3>
         </a>
-        <a href="grafici.php?id=1" class="w3-bar-item" style="margin-top:100px">Dashboard</a>
-        <a href="#" class="w3-bar-item">Libro</a>
-        <a href="grafici.php?id=3" class="w3-bar-item">Prestiti</a>
-        <a href="" class="w3-bar-item" style="margin-top: 150%;">Logout</a>
+        <a href="grafici.php?ID=1" class="w3-bar-item" style="margin-top:100px"> <span class="iconify" data-icon="fluent:clock-12-regular" data-inline="false"></span>Dashboard</a>
+        <a href="grafici.php?ID=2" class="w3-bar-item"><span class="iconify" data-icon="dashicons:book" data-inline="false"></span>Libro</a>
+        <a href="grafici.php?ID=3" class="w3-bar-item"><span class="iconify" data-icon="fa-solid:receipt" data-inline="false"></span>Prestiti</a>
+        <a href="cleanSession.php" class="w3-bar-item" style="margin-top: 150%;"><span class="iconify" data-icon="icomoon-free:exit" data-inline="false"></span>Logout</a>
     </div>
 
-    <div class="container" style="margin-left:19%">
+    <div class="container" style="margin-left:22%">
         <div class="row" style="justify-content:space-between;">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                 <h1 class="h2">Rapporto</h1>
@@ -265,7 +372,7 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
 
         <div class="row">
             <?php
-            if ($iddato == 1) {
+            if ($iddato == 1 || !isset($iddato)) {
                 echo '
             <main class=" ms-sm-9">
                 <div class="d-flex flex-column">
@@ -292,7 +399,7 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
                 <div class="flex-row d-inline-flex " style=" padding-bottom: 10px;">
                     <div class="grafico_linee grafico_verde justify-content-center">
                         <p class="testo_titolo light">Libri in prestito</p>
-                        <p style=" bottom:20px;position:relative; float:right; margin-bottom:0px;padding-right:10px; color:#FFFFFF;">' . (($restituiti / ($restituiti + $nonrestituiti)) * 100) . '%' . '</p>
+                        <p style=" bottom:20px;position:relative; float:right; margin-bottom:0px;padding-right:10px; color:#FFFFFF;">' . round((($restituiti / ($restituiti + $nonrestituiti)) * 100), PHP_ROUND_HALF_UP) . '%' . '</p>
                         <canvas id="grafico2" height="250px" style="padding-bottom: 10px;"></canvas>
                     </div>
                 </div>
@@ -346,33 +453,127 @@ include("css/style.css"); ?><?php include("css/style_grafici.css"); ?>
                 </div>
             </div>
             ';
-            }elseif($iddato == 3){
-                echo'<table class="table table-bordered">
+            } elseif ($iddato == 2) {
+                echo '
+                <table class="table table-bordered">
                 <thead>
-                    <th><a href="grafici.php?id=3&type=utente">Utente</a></th>
-                    <th><a href="grafici.php?id=3&type=libro">Libro</a></th>
-                    <th><a href="grafici.php?id=3&type=dataprestito">Data Prestito</a></th>
-                    <th><a href="grafici.php?id=3&type=datareso">Data Reso</a></th>
-                    <th><a href="grafici.php?id=3&type=stato">Stato</a></th>
+                <th><a href="grafici.php?ID=2&TYPE=titolo">Titolo';
+                if ($typedato == "titolo") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+                
+                <th><a href="grafici.php?ID=2&TYPE=editore">Editore';
+                if ($typedato == "nomeeditore") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+
+                <th><a href="grafici.php?ID=2&TYPE=autore">Autore';
+                if ($typedato == "autore") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+
+                <th><a href="grafici.php?ID=2&TYPE=copie">Copie';
+                if ($typedato == "copie") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+                <th></th>
                 </thead>
                 <tbody>';
-                    while ($crow = mysqli_fetch_array($nquery)) {
-                        echo' <tr>
-                            <td>'.$crow['Nome'].' '.$crow['Cognome'].'</td>
-                            <td>'.$crow['Titolo'].'</td>
-                            <td>'.$crow['Prestito'].'</td>
-                            <td>'.$crow['Riconsegna'].'</td>';
-                            if(is_null($crow['Riconsegna'])){
-                                echo'<td><div class="rettangolo_giallo">DA RESTITUIRE</div></td>';
+                while ($crow = mysqli_fetch_array($nquery)) {
+                    echo ' <tr>
+                            <td>' . $crow['Titolo'].'</td>
+                            <td>' . $crow['Nomeeditore'] . '</td>
+                            <td>' . $crow['Nomeautore'] .' '. $crow['Cognomeautore']. '</td>';
+                            if(is_null($crow['Numero_Copie'])){
+                                echo'<td>0</td>';
                             }else{
-                                echo'<td><div class="rettangolo_verde">IN CUSTODIA</div></td>';
+                                echo'<td>'.$crow['Numero_Copie'].'</td>';
                             }
-                        echo'</tr>';
-                    }
-                echo'</tbody>
+                    echo '<td><div> <a href="modifica_inserimento.php?ID='.$crow['ID'].'" class="btn rettangolo_giallo" >Modifica</a> <a class="btn rettangolo_rosso" href="php/delete_book.php?ID='.$crow['ID'].'">Elimina</a> </div></td>';
+                    echo '</tr>';
+                }
+                echo '</tbody>
             </table>
-            <div id="pagination_controls">'.$paginationCtrls.'</div>';
-        }
+            <div id="pagination_controls" class="" style="display:flex;align-items:center;">' . $paginationCtrls . '</div>
+             </div>
+</form>';
+            } elseif ($iddato == 3) {
+                echo '<form style="margin-top:unset; display:contents;" action="php/update_prestiti.php" method="POST" name="inputprestiti" id="inputprestiti" enctype="multipart/form-data">
+                <table class="table table-bordered">
+                <thead>
+                <th><a href="grafici.php?ID=3&TYPE=utente">Utente';
+                if ($typedato == "utente") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+                
+                <th><a href="grafici.php?ID=3&TYPE=libro">Libro';
+                if ($typedato == "libro") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+
+                <th><a href="grafici.php?ID=3&TYPE=dataprestito">Data Prestito';
+                if ($typedato == "dataprestito") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+
+                <th><a href="grafici.php?ID=3&TYPE=datareso">Data Reso';
+                if ($typedato == "datareso") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+
+                <th><a href="grafici.php?ID=3&TYPE=stato">Stato';
+                if ($typedato == "stato") {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-downward-outline" data-inline="false"></span>';
+                } else {
+                    echo '<span class="iconify" data-icon="eva:arrow-ios-upward-outline" data-inline="false"></span>';
+                }
+                echo '</a></th>
+                </thead>
+                <tbody>';
+                while ($crow = mysqli_fetch_array($nquery)) {
+                    echo ' <tr>
+                            
+                            <td><input type="checkbox" style="display:initial;" name="primary[]" value="' . str_replace(' ', '_', $crow['Email']) . ' ' . str_replace(' ', '_', $crow['ID']) . ' ' . str_replace(' ', '_', $crow['Prestito']) . '"/>' . $crow['Nome'] . ' ' . $crow['Cognome'] . '</td>
+                            <td>' . $crow['Titolo'] . '</td>
+                            <td>' . $crow['Prestito'] . '</td>
+                            <td>' . $crow['Riconsegna'] . '</td>';
+                    if (is_null($crow['Riconsegna'])) {
+                        echo '<td><div class="rettangolo_giallo">DA RESTITUIRE</div></td>';
+                    } else {
+                        echo '<td><div class="rettangolo_verde">IN CUSTODIA</div></td>';
+                    }
+                    echo '</tr>';
+                }
+                echo '</tbody>
+            </table>
+            <div id="pagination_controls" class="" style="display:flex;align-items:center;">' . $paginationCtrls . '</div><div class="d-flex justify-content-end" style="width:-webkit-fill-available";><button type="submit" class="rettangolo_rosso tratteggiato">Rimuovi</button>
+             </div>
+</form>';
+            }
             ?>
         </div>
 

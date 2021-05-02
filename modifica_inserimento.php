@@ -95,7 +95,7 @@
             <div class="row">
                 <!--Caricamento copertina libro-->
                 <div class="col-4">
-                    <div class="parent" id="immagine_carica"">
+                    <div class="parent" id="immagine_carica">
                         <img class=" image1" src="resources/bookCover.png" alt="" height="926px" width="698px" style="bottom:500px;">
                         <img class="image_add" id="image_add" name="image_add" src="resources/add.png" alt="" onclick="upload()">
                         <img class="image2" id="image2" name="image2" src="resources/add.png" alt="" height="836px" width="500px" style="display: none;" onclick="upload()">

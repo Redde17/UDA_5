@@ -9,7 +9,7 @@ session_start();
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+    <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
 
     <!-- iconify -->
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
@@ -90,7 +90,9 @@ session_start();
             <!--Qui ci vanno le Stelle se le facciamo-->
             <form action="book.php" method="GET">
                 <input type="hidden" name="ID" value="<?php echo $row['ID'] ?>">
-                <button type="submit" class="R-btn" style="margin-top: 50px;"><span class="iconify icona_invio" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span> Vai alla pagina del libro</button>
+                <button type="submit" class="R-btn" style="margin-top: 50px;"><span class="iconify icona_invio" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span>
+                    <?php if($_SESSION["language"] == "it"){ echo "Vai alla pagine del libro"; }else{ echo "Visit the book page"; } ?>
+                </button>
             </form>
         </div>
     </div>
@@ -102,8 +104,10 @@ session_start();
             <div class="categoryBall d-flex justify-content-center align-items-center" style="background-color: #93648D;">
                 <span class="iconify categoryIcon" data-icon="mdi:feather" data-inline="false" style="color: white;"></span>
             </div>
-            <a href="genere.php?genere=Romanzi" id="aRomanzi">
-                <p class="categoryText" style="color: #93648D;">Romanzi</p>
+            <a href="genere.php?genere=<?php if($_SESSION["language"] == "it"){ echo "Romanzo"; }else{ echo "Novel"; } ?>" id="aRomanzi">
+                <p class="categoryText" style="color: #93648D;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Romanzo"; }else{ echo "Novel"; } ?>
+                </p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -112,8 +116,10 @@ session_start();
             <div class="categoryBall d-flex justify-content-center align-items-center" style="background-color: #4CC3D9;">
                 <span class="iconify categoryIcon" data-icon="raphael:wrench" data-inline="false" style="color: white;"></span>
             </div>
-            <a href="genere.php?genere=Tecnica" id="aTecnica">
-                <p class="categoryText" style="color: #4CC3D9;">Tecnica</p>
+            <a href="genere.php?genere=<?php if($_SESSION["language"] == "it"){ echo "Tecnica"; }else{ echo "Technical"; } ?>" id="aTecnica">
+                <p class="categoryText" style="color: #4CC3D9;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Tecnica"; }else{ echo "Technical"; } ?>
+                </p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -122,8 +128,10 @@ session_start();
             <div class="categoryBall d-flex justify-content-center align-items-center" style="background-color: #7BC8A4;">
                 <span class="iconify categoryIcon" data-icon="ph:pen-nib-fill" data-inline="false" style="color: white;"></span>
             </div>
-            <a href="genere.php?genere=Poesie" id="aPoesie">
-                <p class="categoryText" style="color: #7BC8A4;">Poesie</p>
+            <a href="genere.php?genere= <?php if($_SESSION["language"] == "it"){ echo "Poesia"; }else{ echo "Poetry"; }?>" id="aPoesie">
+                <p class="categoryText" style="color: #7BC8A4;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Poesia"; }else{ echo "Poetry"; } ?>
+                </p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -132,8 +140,10 @@ session_start();
             <div class="categoryBall d-flex justify-content-center align-items-center" style="background-color: #F16745;">
                 <span class="iconify categoryIcon" data-icon="wpf:mouse" data-inline="false" style="color: white;"></span>
             </div>
-            <a href="genere.php?genere=Informatica" id="aInformatica">
-                <p class="categoryText" style="color: #F16745;">Informatica</p>
+            <a href="genere.php?genere=<?php if($_SESSION["language"] == "it"){ echo "Informatica"; }else{ echo "IT"; }?>" id="aInformatica">
+                <p class="categoryText" style="color: #F16745;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Informatica"; }else{ echo "IT"; } ?></p>
+                </p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -152,8 +162,10 @@ session_start();
             <div class="categoryBall d-flex justify-content-center align-items-center" style="background-color: #4949D2;">
                 <span class="iconify categoryIcon" data-icon="ri:file-paper-2-line" data-inline="false" style="color: white;"></span>
             </div>
-            <a href="genere.php?genere=Poema" id="aPoema">
-                <p class="categoryText" style="color: #4949D2;">Poema</p>
+            <a href="genere.php?genere=<?php if($_SESSION["language"] == "it"){ echo "Poema"; }else{ echo "Poem"; }?>" id="aPoema">
+                <p class="categoryText" style="color: #4949D2;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Poema"; }else{ echo "Poem"; } ?>
+                </p>
             </a>
         </div>
         <div class="vl float-right ml-5"></div>
@@ -163,18 +175,22 @@ session_start();
                 <span class="iconify categoryIcon" data-icon="bi:stars" data-inline="false" style="color: white;"></span>
             </div>
             <a href="genere.php?genere=Nuovi" id="aNuovi">
-                <p class="categoryText" style="color: #DF5EC5;">Nuovi</p>
+                <p class="categoryText" style="color: #DF5EC5;">
+                    <?php if($_SESSION["language"] == "it"){ echo "Nuovi"; }else{ echo "New"; } ?>
+                </p>
             </a>
         </div>
     </div>
-
+    
 
     <!-- Bestsellers -->
     <!-- riga dei libri-->
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">Scopri i libri presenti</h4>
+            <h4 class="float-left divBookTitolo">
+                <?php if($_SESSION["language"] == "it"){ echo "Scopri i nostri libri"; }else{ echo "Discover our books"; } ?>
+            </h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">
@@ -241,7 +257,7 @@ session_start();
                     ';
                 }
             } else {
-                echo 'nessuna riga trovata';
+                if($_SESSION["language"] == "it"){echo "nessuna riga trovata" ;}else{ echo "file not found" ;} 
             }
 
             ?>
@@ -255,7 +271,7 @@ session_start();
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">Aggiunti di recente</h4>
+            <h4 class="float-left divBookTitolo"><?php if($_SESSION["language"] == "it"){ echo "Aggiunti di recente"; }else{ echo "Added recently"; } ?></h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">
@@ -425,7 +441,6 @@ session_start();
     </footer>
 
     <script src="scripts.js"></script>
-   
     <style>
         .image1 {
             position: relative;
