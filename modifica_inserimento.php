@@ -1,14 +1,6 @@
 <!-- TODO:
 -->
 
-<?php
-    session_start();
-
-    if(!isset($_SESSION["admin"])){
-        header("Location:index.php");
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +30,7 @@
     include("php/get_generi.php");
     //Lettura dei generi già dati dal database
     @$iddato = $_POST['ID'];
+    @$controldato = $_POST['control'];
     if (isset($iddato)) {
         $comando = "SELECT libro.id, libro.Titolo, editore.Nome as nomeeditore, libro.Descrizione, libro.Numero_Copie, libro.Immagine,autore.Nome as nomeautore,autore.Cognome as cognomeautore 
         FROM libro,autore,editore
@@ -78,18 +71,22 @@
     ?>
 </head>
 
-<body style="overflow: hidden;">
+<body>
     <?php
-        //navbar
-        include "./PHP/Navbar.php";
+    //navbar
+    include "./PHP/Navbar.php";
     ?>
 
+    </div>
     <div class="back d-flex justify-content-center mt-2">
-        <form action="php/update.php" method="POST" name="inputlibri" id="inputlibri" enctype="multipart/form-data">
+        <form action="php/update.php" method="POST" name="inputlibri" id="inputlibri" enctype="multipart/form-data" onsubmit="return false;">
             <?php
             //se si sta modificando un libro 
             if (isset($iddato)) {
                 echo '<input type="hidden" name="id" id="id" value="' . $iddato . '">';
+            }
+            if (isset($controldato)) {
+                echo '<input type="hidden" id="control" name="control" value="1"></input>';
             }
             ?>
             <div class="row">
@@ -146,7 +143,7 @@
         <div class="casella">
             <label for="autore">By:</label>
             <input type="text" class="autore_text nomeautore" name="nomeautore" list="autorinome_lista" id="nomeautore" placeholder="Aggiungi nome autore" value="<?php echo $nomeautore ?>" required />
-            <input type="text" class="autore_text cognomeautore" name="cognomeautore" list="autoricognome_lista" id="cognomeautore" placeholder="Aggiungi cognome autore" value="<?php echo $cognomeautore ?>">
+            <input type="text" class="autore_text cognomeautore" name="cognomeautore" list="autoricognome_lista" id="cognomeautore" placeholder="Aggiungi cognome autore" value="<?php echo $cognomeautore ?>" required>
             <datalist id="autorinome_lista">
                 <?php
                 $sql = "SELECT autore.Nome,autore.Cognome FROM autore";
@@ -198,7 +195,7 @@
         <!--Fine Inserimento libri disponibili -->
 
         <!--Bottone Invio -->
-        <button type="submit" name="submit" value="submit" class="btn_invio">
+        <button type="submit" name="submit" value="submit" class="btn_invio" onclick="controllo()">
             <span class="iconify icona_invio" style="color: #FFFFFF;" data-icon="ic:baseline-library-add" data-inline="false"></span>
             <?php if (isset($iddato)) {
                 echo 'Aggiorna libro';
@@ -422,6 +419,31 @@
     });
     //FINE PREWIEW IMMAGINE
     provaclick();
+
+    $(function() {
+        var $form = $('form#inputlibri');
+        $form.removeAttr('onsubmit');
+
+        $cbx_group = $("input:checkbox[name='categorie[]']");
+        $cbx_group.prop('required', true);
+        /*$form.submit(function(ev) {
+            if ($("input:checkbox[name='categorie[]']:checked").length == 0) {
+                ev.preventDefault();
+                alert("miao");
+            }else{
+                alert("sono dentro");
+                $cbx_group.prop('required', false);
+            }
+        });*/
+    });
+
+    function controllo(){
+            if ($("input:checkbox[name='categorie[]']:checked").length == 0) {
+                $form.preventDefault();
+            }else{
+                $cbx_group.prop('required', false);
+            }
+        }
 </script>
 
 </html>

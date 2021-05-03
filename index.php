@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+if(!isset($_SESSION["language"])){
+    $_SESSION["language"] = "it";
+}
+
+//test variable
+//$_SESSION["language"] = "eng";
+
 ?>
 
 <!DOCTYPE html>
@@ -30,9 +38,6 @@ session_start();
     <?php
     include "PHP/connection.php";
     $conn = connection("biblioteca");
-
-    //test push
-
     
     //query
 
@@ -188,9 +193,7 @@ session_start();
     <div class="divBook mt-5">
         <div style="width: 100%; height: 50px;">
             <!-- Scritta categoria -->
-            <h4 class="float-left divBookTitolo">
-                <?php if($_SESSION["language"] == "it"){ echo "Scopri i nostri libri"; }else{ echo "Discover our books"; } ?>
-            </h4>
+            <h4 class="float-left divBookTitolo"><?php if($_SESSION["language"] == "it"){ echo "Scopri i nostri libri"; }else{ echo "Discover our books"; } ?></h4>
 
             <!-- Tasti per lo scroll -->
             <div class="float-right" style="margin-right: 10px;">

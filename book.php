@@ -1,6 +1,10 @@
 <?php
 session_start();
 date_default_timezone_set('Europe/Rome');
+
+if(!isset($_SESSION["language"])){
+    $_SESSION["language"] = "it";
+}
 ?>
 
 <!DOCTYPE html>
@@ -148,7 +152,7 @@ date_default_timezone_set('Europe/Rome');
                     <p class="text-truncate R-textSmall R-noMP" style="font: normal normal 300 20px/27px Segoe UI;">By: <?php echo $row["Nome_autore"] . " " . $row["Cognome_autore"] ?> </p>
 
                     <!-- Nome Editore -->
-                    <p class="text-truncate R-textSmall R-noMP" style="font: normal normal 300 20px/27px Segoe UI;">Editore: <?php echo $row["Nome_editore"] ?> </p>
+                    <p class="text-truncate R-textSmall R-noMP" style="font: normal normal 300 20px/27px Segoe UI;"> <?php if($_SESSION["language"] == "it"){ echo "Editore:"; }else{ echo "Publisher:"; } ?> <?php echo $row["Nome_editore"] ?> </p>
 
                     <!-- Descrizione -->
                     <p class=" R-textMedium R-noMP" style="font: italic normal bold 20px/27px Segoe UI; width: 822px;"><?php echo $row["Descrizione"] ?> </p>
@@ -172,7 +176,11 @@ date_default_timezone_set('Europe/Rome');
                     echo '
                         <form action="action.php" method="POST">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3" ' . $text . '>
-                                <span class="iconify icona_libro mr-2" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span>Aggiungi alla libreria
+                                <span class="iconify icona_libro mr-2" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span>';
+                                
+                                if($_SESSION["language"] == "it"){ echo "Aggiungi alla libreria"; }else{ echo "Add to library"; } 
+                                
+                                echo '
                             </button>
                             <input type="hidden" name="ID" value="' . $_GET["ID"] . '">
                         </form>      
@@ -181,7 +189,11 @@ date_default_timezone_set('Europe/Rome');
                     echo '
                         <form id="noReload">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3" onclick="Form()">
-                                <span class="iconify icona_libro mr-2" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span>Aggiungi alla libreria
+                                <span class="iconify icona_libro mr-2" data-icon="icomoon-free:books" data-inline="false" style="color: white;"></span>';
+
+                                if($_SESSION["language"] == "it"){ echo "Aggiungi alla libreria"; }else{ echo "Add to library"; } 
+
+                                echo '
                             </button>
                         </form>      
                         ';
@@ -190,7 +202,7 @@ date_default_timezone_set('Europe/Rome');
 
                 <form action="action.php" method="POST">
                     <button type="submit" name="method" class="R-btn btn mr-2" value="4" <?php if (!$isBooked) {echo "disabled";} ?>>
-                        <img class="mb-1" style="width:37px; height:17px;" src="resources\HandImage.png" alt="handImage.img">Restituisci
+                        <img class="mb-1" style="width:37px; height:17px;" src="resources\HandImage.png" alt="handImage.img"> <?php if($_SESSION["language"] == "it"){ echo "Restituisci"; }else{ echo "Return"; } ?>
                     </button>
                     <input type="hidden" name="ID" value="<?php echo $_GET["ID"] ?>">
                 </form>
@@ -200,16 +212,23 @@ date_default_timezone_set('Europe/Rome');
                         echo '
                         <form action="modifica_inserimento.php" method="POST">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3">
-                                <span class="iconify icona_libro mr-2" data-icon="fa-solid:pencil-ruler" data-inline="false" style="color: white;"></span>Modifica
+                                <span class="iconify icona_libro mr-2" data-icon="fa-solid:pencil-ruler" data-inline="false" style="color: white;"></span>';
+
+                                if($_SESSION["language"] == "it"){ echo "Modifica"; }else{ echo "Modify"; }
+
+                                echo '
                             </button>
                             <input type="hidden" name="ID" value="' . $_GET["ID"] . '">
                         </form>  
 
-                        <form action="" method="POST">
+                        <form action="grafici.php?ID=4&IDBOOK='. $_GET["ID"] .'" method="POST">
                             <button type="submit" name="method" class="R-btn btn mr-2" value="3">
-                                <span class="iconify icona_libro mr-2" data-icon="oi:graph" data-inline="false" style="color: white;"></span>Statistiche
+                                <span class="iconify icona_libro mr-2" data-icon="oi:graph" data-inline="false" style="color: white;"></span>';
+
+                                if($_SESSION["language"] == "it"){ echo "Statistiche"; }else{ echo "Statistics"; }
+
+                                echo '
                             </button>
-                            <input type="hidden" name="ID" value="' . $_GET["ID"] . '">
                         </form>  
                         ';
                     }

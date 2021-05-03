@@ -13,6 +13,7 @@ if ($_FILES["tag_carica"]['error'] == 4) {
 }
 
 @$id = $_POST['id'];
+@$control = $_POST['control'];
 
 $nome = strtolower($_POST['nome']);
 $nome = ucfirst($nome);
@@ -161,5 +162,11 @@ if (!isset($id)) { //SE si sta inserendo un libro
         $stmt->close();
     }
 }
-header("Location:../index.php");
-?>
+
+if(isset($control)){
+    header("Location:https://".$_SERVER['HTTP_HOST']."/UDA_5/grafici.php");
+}else{
+    header("Location:https://".$_SERVER['HTTP_HOST']."/UDA_5/index.php");
+}
+
+//TODO:CAMBIARE PATH QUANDO è SUL SERVER FINALE
